@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { deleteUser, getUsers } from "../services/users.service";
+import MyComponent from "../components/DeleteBtn";
+import DeleteBtn from "../components/DeleteBtn";
 
 export default function UsersList() {
   //cara menggunakan axios API GET data =============
@@ -69,12 +71,7 @@ export default function UsersList() {
                       >
                         Edit
                       </Link>
-                      <button
-                        onClick={() => deleteUser(user.id)}
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-2"
-                      >
-                        Delete
-                      </button>
+                      <DeleteBtn onClick={() => deleteUser(user.id)} />
                     </td>
                   </tr>
                 ))}
