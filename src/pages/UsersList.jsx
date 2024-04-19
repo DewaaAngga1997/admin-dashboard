@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { deleteUser, getUsers } from "../services/users.service";
-import MyComponent from "../components/DeleteBtn";
 import DeleteBtn from "../components/DeleteBtn";
+import Swal from "sweetalert2";
 
 export default function UsersList() {
   //cara menggunakan axios API GET data =============
@@ -14,6 +14,47 @@ export default function UsersList() {
     });
   }, []);
 
+  const handleDelete = (id) => {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton:
+          "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mx-2",
+        cancelButton:
+          "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-2",
+      },
+      buttonsStyling: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          deleteUser(id);
+          setUsers(users.filter((user) => user.id !== id));
+          swalWithBootstrapButtons.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire({
+            title: "Cancelled",
+            text: "Your imaginary file is safe :)",
+            icon: "error",
+          });
+        }
+      });
+  };
   //===================================================
   return (
     <>
@@ -22,12 +63,12 @@ export default function UsersList() {
           <div className="flex justify-between ">
             <div className="mb-5">
               <label className="font-bold text-slate-700" htmlFor="search">
-                Search
+                Pencarian
               </label>
               <input
                 type="text"
                 className="w-full py-3 mt-1 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow"
-                placeholder="Search..."
+                placeholder="cari..."
                 id="search"
               />
             </div>
@@ -71,7 +112,7 @@ export default function UsersList() {
                       >
                         Edit
                       </Link>
-                      <DeleteBtn onClick={() => deleteUser(user.id)} />
+                      <DeleteBtn onClick={() => handleDelete(user.id)} />
                     </td>
                   </tr>
                 ))}

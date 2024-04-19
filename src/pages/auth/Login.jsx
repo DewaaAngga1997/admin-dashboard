@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { login } from "../../services/auth.services";
 
 export default function Login() {
+  const [loginFailed, setLoginFailed] = useState("");
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const data = {
+      username: event.target.username.value,
+      password: event.target.password.value,
+    };
+    login(data, (status, response) => {
+      if (status) {
+        localStorage.setItem("token", response);
+        window.location.href = "/dashboard";
+      } else {
+        setLoginFailed(response.response.data);
+      }
+    });
+  };
   return (
     <section className="bg-gray-50 min-h-screen flex items-center justify-center">
       {/* <!-- login container --> */}
@@ -15,12 +32,13 @@ export default function Login() {
             If you are already a member, easily log in
           </p>
 
-          <form action="" className="flex flex-col mt-8">
+          <form onSubmit={handleLogin} className="flex flex-col mt-8">
             <label htmlFor="username" className="text-[#002D74]">
               Username
             </label>
             <input
               className="p-2 rounded-xl border my-2"
+              label="username"
               type="text"
               name="username"
               placeholder="username"
@@ -32,6 +50,7 @@ export default function Login() {
             <div className="relative">
               <input
                 className="p-2 rounded-xl border w-full my-2"
+                label="password"
                 type="password"
                 name="password"
                 placeholder="********"
@@ -50,12 +69,15 @@ export default function Login() {
                 <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
               </svg>
             </div>
-            <Link
-              to="/dashboard"
+            {loginFailed && (
+              <p className="text-red-500 text-center">{loginFailed}</p>
+            )}
+            <button
+              type="submit"
               className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300 mt-4 text-center"
             >
               Login
-            </Link>
+            </button>
           </form>
 
           <div className="mt-6 grid grid-cols-3 items-center text-gray-400">

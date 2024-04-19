@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import {
@@ -11,6 +11,7 @@ import {
   ChevronFirst,
   ChevronLast,
 } from "lucide-react";
+import { getUsername } from "../services/auth.services";
 
 export default function Sidebar({ children }) {
   const menuItems = [
@@ -50,6 +51,17 @@ export default function Sidebar({ children }) {
   const [activeIndex, setActiveIndex] = useState(0); // Menyimpan indeks item yang aktif
   const handleClick = (index) => {
     setActiveIndex(index);
+  };
+
+  const [username, setUsername] = useState("");
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    setUsername(getUsername(token));
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
   };
 
   return (
@@ -105,7 +117,15 @@ export default function Sidebar({ children }) {
             <h1 className="text-2xl font-bold w-full">
               {menuItems[activeIndex].name}
             </h1>
-            <div className="flex justify-end w-full">Admin</div>
+            <div className="flex justify-end w-full items-center">
+              <p className="text-center px-5">{username}</p>
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-2"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </div>
           </div>
           <div className=" p-8  w-full">{children}</div>
         </div>
