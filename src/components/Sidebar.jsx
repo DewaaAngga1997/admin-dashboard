@@ -64,6 +64,7 @@ export default function Sidebar({ children }) {
     window.location.href = "/";
   };
 
+  console.log("username");
   return (
     <Fragment>
       <div className="flex">

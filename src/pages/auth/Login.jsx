@@ -4,6 +4,7 @@ import { login } from "../../services/auth.services";
 
 export default function Login() {
   const [loginFailed, setLoginFailed] = useState("");
+
   const handleLogin = (event) => {
     event.preventDefault();
     const data = {
@@ -43,6 +44,7 @@ export default function Login() {
               name="username"
               placeholder="username"
               id="username"
+              required
             />
             <label htmlFor="password" className="text-[#002D74]">
               Password
@@ -55,6 +57,7 @@ export default function Login() {
                 name="password"
                 placeholder="********"
                 id="password"
+                required
               />
 
               <svg
@@ -70,7 +73,9 @@ export default function Login() {
               </svg>
             </div>
             {loginFailed && (
-              <p className="text-red-500 text-center">{loginFailed}</p>
+              <p className="text-red-500 text-center">
+                Username atau Password salah
+              </p>
             )}
             <button
               type="submit"
