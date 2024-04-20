@@ -63,8 +63,11 @@ export default function Sidebar({ children }) {
     localStorage.removeItem("token");
     window.location.href = "/";
   };
+  // jika token tidak ada maka diarahkan ke halaman login
+  if (localStorage.token === undefined) {
+    window.location.href = "/";
+  }
 
-  console.log("username");
   return (
     <Fragment>
       <div className="flex">

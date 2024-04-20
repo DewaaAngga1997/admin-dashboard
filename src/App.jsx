@@ -4,11 +4,11 @@ import Analytics from "./pages/Analytics.jsx";
 import Comment from "./pages/Comment.jsx";
 import Product from "./pages/Product.jsx";
 import ProductList from "./pages/ProductList.jsx";
-import Sidebar from "./components/Sidebar.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import UsersList from "./pages/UsersList.jsx";
 import UserAdd from "./pages/UserAdd.jsx";
+import Sidebar from "./layout/index.jsx";
 
 export default function App() {
   return (

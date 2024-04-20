@@ -85,7 +85,7 @@ export default function Register() {
               </svg>
             </div>
             <button className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300 mt-4">
-              Login
+              Register
             </button>
           </form>
 
