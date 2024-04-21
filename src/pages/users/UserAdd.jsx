@@ -70,13 +70,13 @@ export default function UserAdd() {
           <div className="flex gap-3 justify-center mt-10">
             <button
               type="submit"
-              className="w-28 py-3 font-bold text-white bg-blue-500 hover:bg-blue-700 rounded-lg border-blue-500 hover:shadow"
+              className="w-28 py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-700 rounded border-blue-500 hover:shadow"
             >
               Simpan
             </button>
             <Link
               to="/users"
-              className=" text-center w-28 py-3 font-bold text-white bg-red-500 hover:bg-red-700 rounded-lg border-red-500 hover:shadow"
+              className=" text-center w-28 py-2 px-4 font-bold text-white bg-red-500 hover:bg-red-700 rounded border-red-500 hover:shadow"
             >
               Batal
             </Link>

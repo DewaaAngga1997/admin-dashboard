@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { deleteUser, getUsers } from "../services/users.service";
-import DeleteBtn from "../components/DeleteBtn";
+import { deleteUser, getUsers } from "../../services/users.service";
+import DeleteBtn from "../../components/DeleteBtn";
 import Swal from "sweetalert2";
 
 export default function UsersList() {
