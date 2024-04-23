@@ -5,6 +5,7 @@ import DeleteBtn from "../../components/DeleteBtn";
 import Swal from "sweetalert2";
 
 export default function UsersList() {
+  const [search, setSearch] = useState("");
   //cara menggunakan axios API GET data =============
   const [users, setUsers] = useState([]);
   //UseEffect untuk menjalankan fungsi getUsers
@@ -70,6 +71,7 @@ export default function UsersList() {
                 className="w-full py-3 mt-1 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow"
                 placeholder="cari..."
                 id="search"
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
             <div className="flex items-end">
@@ -94,28 +96,43 @@ export default function UsersList() {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user, index) => (
-                  <tr key={user.id}>
-                    <td className="py-3 px-1 text-center">{index + 1}</td>
-                    <td className="py-3 px-1 text-center">
-                      {user.name.firstname}
-                    </td>
-                    <td className="py-3 px-1 text-center">
-                      {user.name.lastname}
-                    </td>
-                    <td className="py-3 px-1 text-center">{user.username}</td>
-                    <td className="py-3 px-1 text-center">{user.email}</td>
-                    <td className="py-3 px-1 text-center">
-                      <Link
-                        to=""
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-2"
-                      >
-                        Edit
-                      </Link>
-                      <DeleteBtn onClick={() => handleDelete(user.id)} />
-                    </td>
-                  </tr>
-                ))}
+                {users
+                  .filter((user) => {
+                    const firstNameSearch = user.name.firstname
+                      .toLowerCase()
+                      .includes(search);
+                    const lastNameSearch = user.name.lastname
+                      .toLowerCase()
+                      .includes(search);
+                    const usernameSearch = user.username
+                      .toLowerCase()
+                      .includes(search);
+                    return search.toLowerCase() === ""
+                      ? user
+                      : firstNameSearch || lastNameSearch || usernameSearch;
+                  })
+                  .map((user, index) => (
+                    <tr key={user.id}>
+                      <td className="py-3 px-1 text-center">{index + 1}</td>
+                      <td className="py-3 px-1 text-center">
+                        {user.name.firstname}
+                      </td>
+                      <td className="py-3 px-1 text-center">
+                        {user.name.lastname}
+                      </td>
+                      <td className="py-3 px-1 text-center">{user.username}</td>
+                      <td className="py-3 px-1 text-center">{user.email}</td>
+                      <td className="py-3 px-1 text-center">
+                        <Link
+                          to=""
+                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-2"
+                        >
+                          Edit
+                        </Link>
+                        <DeleteBtn onClick={() => handleDelete(user.id)} />
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
