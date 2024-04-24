@@ -112,7 +112,7 @@ export default function UsersList() {
                       : firstNameSearch || lastNameSearch || usernameSearch;
                   })
                   .map((user, index) => (
-                    <tr key={user.id}>
+                    <tr key={user.id} className="hover:bg-slate-100">
                       <td className="py-3 px-1 text-center">{index + 1}</td>
                       <td className="py-3 px-1 text-center">
                         {user.name.firstname}
