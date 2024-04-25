@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getProduct = (callback) => {
+export const getCategory = (callback) => {
   axios
     .get("https://fakestoreapi.com/products/categories")
     .then((response) => {

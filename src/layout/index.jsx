@@ -36,8 +36,8 @@ export default function Sidebar({ children }) {
       icon: <MessageSquareMore />,
     },
     {
-      path: "/product",
-      name: "Product",
+      path: "/category",
+      name: "Category",
       icon: <ShoppingCart />,
     },
     {

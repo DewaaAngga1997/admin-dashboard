@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Dashboard from "./pages/Dashboard.jsx";
 import Analytics from "./pages/Analytics.jsx";
 import Comment from "./pages/Comment.jsx";
-import Product from "./pages/Product.jsx";
 import ProductList from "./pages/ProductList.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
@@ -10,6 +9,7 @@ import Sidebar from "./layout/index.jsx";
 import UsersList from "./pages/users/UsersList.jsx";
 import UserAdd from "./pages/users/UserAdd.jsx";
 import EditUser from "./pages/users/EditUser.jsx";
+import Category from "./pages/Category.jsx";
 
 export default function App() {
   return (
@@ -68,10 +68,10 @@ export default function App() {
           }
         />
         <Route
-          path="/product"
+          path="/category"
           element={
             <WithSidebarLayout>
-              <Product />
+              <Category />
             </WithSidebarLayout>
           }
         />
