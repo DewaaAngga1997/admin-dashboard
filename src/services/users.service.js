@@ -7,7 +7,7 @@ export const getUsers = (callback) => {
       callback(response.data);
     })
     .catch((error) => {
-      console.log(error);
+      console.log("Gagal mendapatkan data:", error);
     });
 };
 
@@ -18,6 +18,17 @@ export const deleteUser = (id) => {
       getUsers();
     })
     .catch((error) => {
-      console.log(error);
+      console.log("Gagal menghapus data:", error);
+    });
+};
+
+export const addUser = (data) => {
+  axios
+    .post("https://fakestoreapi.com/users")
+    .then((response) => {
+      console.log("Data berhasil ditambahkan:", response.data);
+    })
+    .catch((error) => {
+      console.error("Gagal menambahkan data:", error);
     });
 };
