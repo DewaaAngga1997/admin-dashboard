@@ -9,3 +9,7 @@ Currently, two official plugins are available:
 
 
 API : https://fakestoreapi.com/docs
+
+Login : https://fakestoreapi.com/users
+username : johnd
+password : m38rmF$
