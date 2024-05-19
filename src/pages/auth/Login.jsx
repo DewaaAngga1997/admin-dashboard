@@ -1,19 +1,31 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { login } from "../../services/auth.services";
 import { Eye, EyeOff } from "lucide-react";
 
+const userData = {
+  username: "",
+  password: "",
+};
 export default function Login() {
   const [loginFailed, setLoginFailed] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const username = useRef();
+  const password = useRef();
 
   const handleLogin = (event) => {
     event.preventDefault();
-    const data = {
-      username: event.target.username.value,
-      password: event.target.password.value,
-    };
-    login(data, (status, response) => {
+    const inputUsername = username.current.value;
+    const inputPassword = password.current.value;
+
+    userData.username = inputUsername;
+    userData.password = inputPassword;
+
+    // const data = {
+    //   username: event.target.username.value,
+    //   password: event.target.password.value,
+    // };
+    login(userData, (status, response) => {
       if (status) {
         localStorage.setItem("token", response);
         window.location.href = "/dashboard";
@@ -24,9 +36,9 @@ export default function Login() {
   };
 
   return (
-    <section className="bg-gray-50 min-h-screen flex items-center justify-center">
+    <section className="flex items-center justify-center min-h-screen bg-gray-50">
       {/* <!-- login container --> */}
-      <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
+      <div className="flex items-center max-w-3xl p-5 bg-gray-100 shadow-lg rounded-2xl">
         {/* <!-- form --> */}
         <div className="px-8 md:px-10 w-[500px]">
           <h2 className="font-bold text-4xl text-[#002D74] text-center">
@@ -41,12 +53,12 @@ export default function Login() {
               Username
             </label>
             <input
-              className="p-2 rounded-xl border my-2"
+              className="p-2 my-2 border rounded-xl"
               label="username"
               type="text"
-              name="username"
               placeholder="username"
               id="username"
+              ref={username}
               required
             />
             <label htmlFor="password" className="text-[#002D74]">
@@ -54,28 +66,28 @@ export default function Login() {
             </label>
             <div className="relative">
               <input
-                className="p-2 rounded-xl border w-full my-2"
+                className="w-full p-2 my-2 border rounded-xl"
                 label="password"
                 type={showPassword ? "text" : "password"}
-                name="password"
                 placeholder="********"
+                ref={password}
                 id="password"
                 required
               />
               {showPassword ? (
                 <Eye
-                  className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400"
+                  className="absolute text-gray-400 -translate-y-1/2 top-1/2 right-3"
                   onClick={() => setShowPassword(false)}
                 />
               ) : (
                 <EyeOff
-                  className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400"
+                  className="absolute text-gray-400 -translate-y-1/2 top-1/2 right-3"
                   onClick={() => setShowPassword(true)}
                 />
               )}
             </div>
             {loginFailed && (
-              <p className="text-red-500 text-center">
+              <p className="text-center text-red-500">
                 Username atau Password salah
               </p>
             )}
@@ -87,9 +99,9 @@ export default function Login() {
             </button>
           </form>
 
-          <div className="mt-6 grid grid-cols-3 items-center text-gray-400">
+          <div className="grid items-center grid-cols-3 mt-6 text-gray-400">
             <hr className="border-gray-400" />
-            <p className="text-center text-sm">OR</p>
+            <p className="text-sm text-center">OR</p>
             <hr className="border-gray-400" />
           </div>
 
@@ -130,7 +142,7 @@ export default function Login() {
             <p>Don't have an account?</p>
             <Link
               to="/register"
-              className="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300"
+              className="px-5 py-2 duration-300 bg-white border rounded-xl hover:scale-110"
             >
               Register
             </Link>
