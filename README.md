@@ -13,3 +13,9 @@ API : https://fakestoreapi.com/docs
 Login : https://fakestoreapi.com/users
 username : johnd
 password : m38rmF$
+
+![image](https://github.com/user-attachments/assets/3aa224e6-0d64-4d89-ad32-107b4191d40a)
+![image](https://github.com/user-attachments/assets/240c8d60-0ea6-4eb7-90ee-2906f9f9ee6e)
+
+
+
